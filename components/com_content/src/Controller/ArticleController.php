@@ -285,11 +285,18 @@ class ArticleController extends FormController
 
         $append .= '&layout=edit';
 
+        $itemId = $this->input->getInt('Itemid');
+
         if ($recordId) {
             $append .= '&' . $urlVar . '=' . $recordId;
+
+            $menuItem = $this->app->getMenu()->getItems('link', "index.php?option={$this->option}&view=article&id={$recordId}", true);
+
+            if ($menuItem) {
+                $itemId = $menuItem->id;
+            }
         }
 
-        $itemId = $this->input->getInt('Itemid');
         $return = $this->getReturnPage();
         $catId  = $this->input->getInt('catid');
 
